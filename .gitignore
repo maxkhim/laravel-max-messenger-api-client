@@ -1,0 +1,8 @@
+/vendor
+/vendor/*
+/.idea/*
+/.idea
+/.php-cs-fixer.cache
+/.package-ext-info
+/INFO.md
+/swagger (2).json

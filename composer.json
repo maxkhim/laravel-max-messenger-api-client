@@ -1,0 +1,32 @@
+{
+  "name": "maxkhim/laravel-max-messenger-api-client",
+  "description": "Laravel Max Messenger API Client package",
+  "license": "mit",
+  "authors": [
+    {
+      "name": "Khimusov Maxim",
+      "email": "maxkhim@yandex.ru",
+      "role": "Creator"
+    }
+  ],
+  "require": {
+    "php": "^7.4|^8.0",
+    "guzzlehttp/guzzle": "^7.0|^8.0|^9.0",
+    "laravel/framework": "^8.0|^9.0|^10.0|^11.0|^12.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "Maxkhim\\MaxMessengerApiClient\\": "src/"
+    }
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "Maxkhim\\MaxMessengerApiClient\\Providers\\MaxMessengerApiServiceProvider",
+        "Maxkhim\\MaxMessengerApiClient\\Providers\\MaxMessengerChatBotServiceProvider"
+      ]
+    }
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true
+}
