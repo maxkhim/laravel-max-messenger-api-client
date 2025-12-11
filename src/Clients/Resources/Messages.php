@@ -8,8 +8,13 @@ use Maxkhim\MaxMessengerApiClient\Clients\Requests\ResourceRequest;
 
 class Messages extends ResourceRequest
 {
-    public function sendMessage(array $data, ?int $userId = null, ?int $chatId = null, bool $disableLinkPreview = false)
-    {
+    public function sendMessage(
+        Message $botMessage,
+        ?int $userId = null,
+        ?int $chatId = null,
+        bool $disableLinkPreview = false
+    ) {
+        $data = $botMessage->toArray();
         $submitData["json"] = $data;
         $submitData["query"] = [
             "chat_id" => $chatId,

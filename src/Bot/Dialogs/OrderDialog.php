@@ -2,10 +2,13 @@
 
 namespace Maxkhim\MaxMessengerApiClient\Bot\Dialogs;
 
+use Illuminate\Support\Str;
 use Maxkhim\MaxMessengerApiClient\Bot\Dialogs\AbstractDialog;
+use Maxkhim\MaxMessengerApiClient\Models\BotConversation;
 
 class OrderDialog extends AbstractDialog
 {
+    protected ?BotConversation $currentDialog = null;
     public function __construct()
     {
         $this->steps = [
@@ -15,8 +18,12 @@ class OrderDialog extends AbstractDialog
         ];
     }
 
-    public function start(string $userId): string
+
+
+    public function start(string $userId, string $chatId): string
     {
+        $currentDialog = $this->getCurrentConversation($userId, $chatId);
+
         $this->currentStep = 0;
         return $this->steps[0]['question'];
     }
@@ -29,6 +36,14 @@ class OrderDialog extends AbstractDialog
         $comment = $this->userData[2];
 
         // Сохранение заказа и т.д.
+
+        $this->currentDialog->is_active = false;
+        $this->currentDialog->metadata = [
+            "product" => $product,
+            "quantity" => $quantity,
+            "comment" => $comment
+        ];
+        $this->currentDialog->save();
 
         return "Заказ создан! Товар: $product, Количество: $quantity [DIALOG_END]";
     }

@@ -22,7 +22,8 @@
   "extra": {
     "laravel": {
       "providers": [
-        "Maxkhim\\MaxMessengerApiClient\\Providers\\MaxMessengerApiServiceProvider"
+        "Maxkhim\\MaxMessengerApiClient\\Providers\\MaxMessengerApiServiceProvider",
+        "Maxkhim\\MaxMessengerApiClient\\Providers\\MaxMessengerChatBotServiceProvider"
       ]
     }
   },

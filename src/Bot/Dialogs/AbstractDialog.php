@@ -8,8 +8,8 @@ abstract class AbstractDialog
     protected int $currentStep = 0;
     protected array $userData = [];
 
-    abstract public function start(string $userId): string;
-    public function handleInput(string $userId, string $input): ?string
+    abstract public function start(string $userId, string $chatId): string;
+    public function handleInput(string $userId, string $chatId, string $input): ?string
     {
         if (isset($this->steps[$this->currentStep])) {
             $this->userData[$this->currentStep] = $input;
@@ -21,7 +21,6 @@ abstract class AbstractDialog
                 return $this->finalize($userId);
             }
         }
-
         return null;
     }
 

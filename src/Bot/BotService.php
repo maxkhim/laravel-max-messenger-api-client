@@ -3,7 +3,9 @@
 namespace Maxkhim\MaxMessengerApiClient\Bot;
 
 use Maxkhim\MaxMessengerApiClient\Bot\Commands\CommandInterface;
-use Maxkhim\MaxMessengerApiClient\Bot\Dialogs\DialogInterface;
+use Maxkhim\MaxMessengerApiClient\Bot\Dialogs\AbstractDialog;
+use Maxkhim\MaxMessengerApiClient\Bot\Messages\Message;
+use Maxkhim\MaxMessengerApiClient\Facades\MaxMessengerApiClient;
 
 class BotService
 {
@@ -15,25 +17,34 @@ class BotService
         $this->commandManager = $commandManager;
     }
 
-    public function handleMessage(string $userId, string $message): string
+    public function handleMessage(string $userId, string $chatId, string $message): void
     {
         // Проверка на активный диалог
         if (isset($this->activeDialogs[$userId])) {
-            return $this->continueDialog($userId, $message);
+            $this->continueDialog($userId, $chatId, $message);
+            return;
         }
 
         // Обработка команды
         if (str_starts_with($message, '/')) {
-            return $this->handleCommand($userId, $message);
+            $this->handleCommand($userId, $chatId, $message);
+            return;
         }
 
-        return 'Используйте команды, начинающиеся с / (например, /help)';
+        MaxMessengerApiClient::messages()
+            ->sendMessage(
+                Message::message('Используйте команды, начинающиеся с / (например, /help)'),
+                $userId,
+                $chatId
+            );
+
+        return;
     }
 
-    private function handleCommand(string $userId, string $message): string
+    private function handleCommand(string $userId, string $chatId, string $message): string
     {
         $parts = explode(' ', trim($message));
-        $commandName = substr($parts[0], 1); // Убираем '/'
+        $commandName = strtolower(substr($parts[0], 1)); // Убираем '/'
         $params = array_slice($parts, 1);
 
         // Проверка на пустое имя команды
@@ -48,13 +59,14 @@ class BotService
         }
 
         if ($command->shouldStartDialog()) {
-            return $this->startDialog($userId, $command);
+            return $this->startDialog($userId, $chatId, $command);
         }
 
-        return $command->execute($params) ?? 'Команда выполнена.';
+        $message = $command->execute($userId, $chatId, $params);
+        return $message ?? 'Команда выполнена.';
     }
 
-    private function startDialog(string $userId, CommandInterface $command): string
+    private function startDialog(string $userId, string $chatId, CommandInterface $command): string
     {
         $dialogClass = $command->getDialogClass();
 
@@ -69,23 +81,23 @@ class BotService
 
         // Проверка реализации интерфейса
         $dialog = new $dialogClass();
-        if (!$dialog instanceof DialogInterface) {
+        if (!$dialog instanceof AbstractDialog) {
             throw new \InvalidArgumentException(
-                "Класс '{$dialogClass}' должен реализовывать " . DialogInterface::class
+                "Класс '{$dialogClass}' должен реализовывать " . AbstractDialog::class
             );
         }
 
         $this->activeDialogs[$userId] = $dialog;
 
-        return $dialog->start($userId) ?? 'Начало диалога.';
+        return $dialog->start($userId, $chatId) ?? 'Начало диалога.';
     }
 
-    private function continueDialog(string $userId, string $input): string
+    private function continueDialog(string $userId, string $chatId, string $input): string
     {
         $dialog = $this->activeDialogs[$userId];
 
         try {
-            $result = $dialog->handleInput($userId, $input);
+            $result = $dialog->handleInput($userId, $chatId, $input);
 
             // Диалог завершён — очищаем состояние
             if ($result === null || $result === '' || str_contains($result, '[DIALOG_END]')) {

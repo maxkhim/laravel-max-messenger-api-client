@@ -2,21 +2,38 @@
 
 namespace Maxkhim\MaxMessengerApiClient\Bot\Commands;
 
-class StartCommand implements CommandInterface
+use Maxkhim\MaxMessengerApiClient\Bot\Messages\Attachments\Attachment;
+use Maxkhim\MaxMessengerApiClient\Bot\Messages\Attachments\Buttons\Button;
+use Maxkhim\MaxMessengerApiClient\Bot\Messages\Message;
+use Maxkhim\MaxMessengerApiClient\Facades\MaxMessengerApiClient;
+
+class StartCommand extends AbstractCommand implements CommandInterface
 {
-    public function execute(array $params): ?string
+    public function execute(string $userId, string $chatId, array $params): ?string
     {
-        return "Добро пожаловать! Используйте /help для списка команд";
-    }
-
-    public function shouldStartDialog(): bool
-    {
-        return false;
-    }
-
-    public function getDialogClass(): ?string
-    {
+        parent::execute($userId, $chatId, $params);
+        MaxMessengerApiClient::messages()
+            ->sendMessage(
+                Message::message("Добро пожаловать! Выберите действие")
+                    ->addAttachment(
+                        Attachment::inlineKeyboard([
+                            [
+                                Button::callbackButton("Справка", "/help"),
+                            ],
+                            [
+                                Button::linkButton("Канал САФУ в MAX", "https://max.ru/id2901039102_biz")
+                            ]
+                        ])
+                    ),
+                $userId,
+                $chatId
+            );
         return null;
+    }
+
+    public function displayInHelp(): bool
+    {
+        return true;
     }
 
     public function getDescription(): string

@@ -4,9 +4,9 @@ namespace Maxkhim\MaxMessengerApiClient\Bot\Commands;
 
 use Maxkhim\MaxMessengerApiClient\Bot\Dialogs\OrderDialog;
 
-class OrderCommand implements CommandInterface
+class OrderSpravkaCommand extends AbstractCommand implements CommandInterface
 {
-    public function execute(array $params): ?string
+    public function execute(string $userId, string $chatId, array $params): ?string
     {
         return null; // Для диалога сразу не возвращаем ответ
     }
@@ -23,6 +23,6 @@ class OrderCommand implements CommandInterface
 
     public function getDescription(): string
     {
-        return "Сделать заказ товара";
+        return "Заказать справку";
     }
 }
