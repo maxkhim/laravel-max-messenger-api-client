@@ -2,7 +2,6 @@
 
 namespace Maxkhim\MaxMessengerApiClient\Clients\Resources;
 
-use Maxkhim\MaxMessengerApiClient\Clients\Requests\MaxBotRequest;
 use Maxkhim\MaxMessengerApiClient\Clients\Requests\ResourceRequest;
 
 class Updates extends ResourceRequest

@@ -1,7 +1,8 @@
 <?php
 
-namespace Maxkhim\MaxMessengerApiClient\Bot;
+namespace Maxkhim\MaxMessengerApiClient\Services\Bot;
 
+use Maxkhim\MaxMessengerApiClient\Bot\CommandManager;
 use Maxkhim\MaxMessengerApiClient\Bot\Commands\CommandInterface;
 use Maxkhim\MaxMessengerApiClient\Bot\Dialogs\AbstractDialog;
 use Maxkhim\MaxMessengerApiClient\Bot\Messages\Message;
