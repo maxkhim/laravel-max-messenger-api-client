@@ -20,6 +20,18 @@ class BotService
 
     public function handleMessage(string $userId, string $chatId, string $message): void
     {
+        if (config("max-messenger-client.is_test_mode")) {
+            MaxMessengerApiClient::messages()
+                ->sendMessage(
+                    Message::message(
+                        '🧪  Чат-бот находится в режиме пробной эксплуатации - возможны задержки при ответах. ' .
+                        'Все сообщения логируются для улучшения сервиса. Спасибо за терпение!'
+                    ),
+                    $userId,
+                    $chatId
+                );
+        }
+
         // Проверка на активный диалог
         if (isset($this->activeDialogs[$userId])) {
             $this->continueDialog($userId, $chatId, $message);
