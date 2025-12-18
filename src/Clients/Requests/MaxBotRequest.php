@@ -47,6 +47,7 @@ class MaxBotRequest
             Log::error('MaxBot API Request Failed', [
                 'method' => $method,
                 'endpoint' => $endpoint,
+                'options' => $options,
                 'error' => $e->getMessage(),
                 'response' => $e->hasResponse() ? $e->getResponse()->getBody()->getContents() : null
             ]);
