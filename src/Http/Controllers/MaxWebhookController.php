@@ -25,16 +25,14 @@ class MaxWebhookController extends Controller
     public function handle(Request $request, UpdateStorageService $storageService): Response
     {
         $request = Request::capture();
-
-        $update = $storageService->storeUpdate($request->toArray());
         $capture = [
             "json" => $request->toArray(),
             "ip" => $request->ip(),
             "headers" => $request->headers->all(),
         ];
-        activity("max-webhook")
+        /*activity("max-webhook")
             ->withProperties($capture)
-            ->log('Max webhook ' . $request->url() . ' dispatched');
+            ->log('Max webhook ' . $request->url() . ' dispatched');*/
         // 1. Валидация подписи/секрета
         if (!$this->validateSignature($request)) {
             Log::warning('Invalid Max webhook signature', [
@@ -51,6 +49,7 @@ class MaxWebhookController extends Controller
         }*/
 
         try {
+            $storageService->storeUpdate($request->toArray());
             // 3. Определение типа события
             $eventType = $request->toArray()["update_type"] ?? null;
             $payload = $request->toArray();
