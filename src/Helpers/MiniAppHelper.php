@@ -74,10 +74,13 @@ class MiniAppHelper
 
         // Извлекаем пользователя
         $user = json_decode($params['user'] ?? '{}', true);
+        $chat = json_decode($params['chat'] ?? '{}', true);
 
         return ([
             'valid' => true,
-            'user' => $user
+            'user' => $user,
+            'chat' => $chat,
+            'all_data' => $params,
         ]);
     }
 }
