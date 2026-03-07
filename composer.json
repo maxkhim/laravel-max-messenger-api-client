@@ -1,6 +1,6 @@
 {
   "name": "maxkhim/laravel-max-messenger-api-client",
-  "description": "Laravel Max Messenger API Client package",
+  "description": "Клиент для работы с RESTapi Мессенджер Max в проектах на базе фреймворка Laravel",
   "license": "mit",
   "authors": [
     {
