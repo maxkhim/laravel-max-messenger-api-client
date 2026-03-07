@@ -1,7 +1,7 @@
 # Max Bot API Client (PHP)
 
 ![PHP Version](https://img.shields.io/badge/PHP-8.0+-007ec6.svg?logo=php&logoColor=ffffff)
-[![Latest Version](https://img.shields.io/packagist/v/maxkhim/laravel-max-api-client.svg?style=flat&label=Packagist&logo=packagist&logoColor=ffffff)](https://packagist.org/packages/maxkhim/laravel-storage-dedupler)
+[![Latest Version](https://img.shields.io/packagist/v/maxkhim/laravel-max-messenger-api-client.svg?style=flat&label=Packagist&logo=packagist&logoColor=ffffff)](https://packagist.org/packages/maxkhim/laravel-max-messenger-api-client)
 [![Laravel](https://img.shields.io/badge/Laravel-10+-007ec6.svg?logo=laravel&logoColor=ffffff)](https://laravel.com)
 
 Простой и типобезопасный PHP-клиент для работы с [Max Bot API](https://dev.max.ru/docs-api/). Позволяет легко отправлять сообщения, обрабатывать обновления и работать с вложениями через объекты.
@@ -31,7 +31,7 @@ MAX_BOT_TOKEN="Токен бота"
 
 В папке вашего проекта выполните установку:
 ```bash
-bash composer require maxkhim/laravel-max-messenger-api-client
+composer require maxkhim/laravel-max-messenger-api-client
 ```
 
 Выполнить проверку корректности установки:
