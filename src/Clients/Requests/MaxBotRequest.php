@@ -22,6 +22,7 @@ class MaxBotRequest
         $this->apiBaseUri = $apiBaseUri;
         $this->client = new Client([
             'base_uri' => $this->apiBaseUri,
+            'verify' => config('max-messenger-client.verify', false),
             'timeout' => config('max-messenger-client.timeout', 30),
             'headers' => [
                 'Content-Type' => 'application/json',

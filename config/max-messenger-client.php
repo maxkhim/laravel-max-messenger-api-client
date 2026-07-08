@@ -7,5 +7,6 @@ return [
     'retry_times' => env('MAXBOT_RETRY_TIMES', 3),
     'retry_sleep' => env('MAXBOT_RETRY_SLEEP', 100),
     'is_test_mode' => env('MAXBOT_TEST_MODE', true),
+    'verify' => env('MAXBOT_CA_VALUE', false),
     //'' => env('MAX_API_ENDPOINT', 'https://api.max.ru'),
 ];
