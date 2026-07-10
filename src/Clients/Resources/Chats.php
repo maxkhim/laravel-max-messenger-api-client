@@ -14,6 +14,11 @@ class Chats extends ResourceRequest
     public const SENDING_FILE = 'sending_file';
     public const MARK_SEEN = 'mark_seen';
 
+
+    public const TYPE_DIALOG = 'dialog';
+    public const TYPE_CHAT = 'chat';
+    public const TYPE_CHANNEL = 'channel';
+
     public const ALL_ACTIONS = [
         Chats::TYPING_ON,
         Chats::SENDING_PHOTO,
@@ -121,8 +126,18 @@ class Chats extends ResourceRequest
         return $this->getRequest()->delete("/chats/{$chatId}/members/me");
     }
 
+    public function botLeaveChat(int $chatId)
+    {
+        return $this->leaveChat($chatId);
+    }
+
     public function getMembership(int $chatId)
     {
         return $this->getRequest()->get("/chats/{$chatId}/members/me");
+    }
+
+    public function getBotMembership(int $chatId)
+    {
+        return $this->getMembership($chatId);
     }
 }
