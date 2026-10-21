@@ -41,16 +41,16 @@ class MaxBotRequest
             return json_decode($response->getBody()->getContents(), true);
         } catch (RequestException $e) {
             $this->error = true;
-            $this->errorResponse = json_decode(
+            $this->errorResponse = null;/*json_decode(
                 $e->hasResponse() ? $e->getResponse()->getBody()->getContents() : '',
                 true
-            );
+            )*/;
             Log::error('MaxBot API Request Failed', [
                 'method' => $method,
                 'endpoint' => $endpoint,
                 'options' => $options,
                 'error' => $e->getMessage(),
-                'response' => $e->hasResponse() ? $e->getResponse()->getBody()->getContents() : null
+                'response' => /*$e->hasResponse() ? $e->getResponse()->getBody()->getContents() :*/ null
             ]);
             throw new MaxBotException($e->getMessage(), $e->getCode(), $e);
         }
