@@ -63,6 +63,8 @@ $message = Message::message('Привет, мир!')
              ]
          ]
     );
+
+$result = MaxMessengerApiClient::messages()->sendMessage($message, chatId: $chatId);
 ```
 
 ### 2. Обработка входящих обновлений
