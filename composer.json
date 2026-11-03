@@ -1,6 +1,6 @@
 {
   "name": "maxkhim/laravel-max-messenger-api-client",
-  "description": "Клиент для работы с апи мессенджера Макс в проектах на базе фреймворка Laravel",
+  "description": "Client for working with the Max messenger API in Laravel projects. Клиент для работы с апи мессенджера Макс в проектах на базе фреймворка Laravel",
   "type": "library",
   "license": "MIT",
   "authors": [
